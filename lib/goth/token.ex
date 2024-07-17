@@ -36,6 +36,8 @@ defmodule Goth.Token do
 
         * `{:service_account, credentials}` - for fetching token using service account credentials
 
+        * `{:workload_identity, credentials}` - for fetching token using workload identity federation credentials
+
         * `{:refresh_token, credentials}` - for fetching token using refresh token
 
         * `:metadata` - for fetching token using Google internal metadata service
@@ -420,15 +422,6 @@ defmodule Goth.Token do
 
         handle_response(response)
     end
-
-    url = Map.get(credentials, "service_account_impersonation_url")
-    %{"access_token" => token, "token_type" => type} = Jason.decode!(body)
-
-    headers = [{"content-type", "text/json"}, {"Authorization", "#{type} #{token}"}]
-    body = Jason.encode!(%{scope: "https://www.googleapis.com/auth/cloud-platform"})
-    response = request(config.http_client, method: :post, url: url, headers: headers, body: body)
-
-    handle_response(response)
   end
 
   defp handle_workload_identity_response(response, _config), do: handle_response(response)

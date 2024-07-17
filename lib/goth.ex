@@ -29,6 +29,8 @@ defmodule Goth do
 
         * `{:service_account, credentials}` - fetch token using service account credentials
 
+        * `{:workload_identity, credentials}` - fetch token using service workload identity federation
+
         * `{:refresh_token, credentials}` - fetch token using refresh token
 
         * `:metadata` - fetching token using Google internal metadata service
