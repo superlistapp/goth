@@ -3,8 +3,6 @@ defmodule Goth.Token do
   Functions for retrieving the token from the Google API.
   """
 
-  require Logger
-
   @type t :: %__MODULE__{
           token: String.t(),
           type: String.t(),
@@ -412,7 +410,6 @@ defmodule Goth.Token do
     ## If this is not available, the STS returned access token should be directly
     ## used without impersonation
 
-    Logger.info("XXX: #{inspect Map.get(credentials, "service_account_impersonation_url")}")
     case Map.get(credentials, "service_account_impersonation_url") do
       nil ->
         handle_response(response)
